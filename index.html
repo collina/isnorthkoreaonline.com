@@ -66,7 +66,7 @@
       
       function handle_RIPE_callback(measurements_raw) {
         measurements_parsed = JSON.parse(measurements_raw);
-        console.log(measurements_parsed);
+        //console.log(measurements_parsed);
         ripe_measurements[measurements_parsed.msm_id]["ripe_object"].add_measurement(measurements_parsed);
         poll_results();
       }
