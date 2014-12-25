@@ -63,7 +63,7 @@
       var ripe_measurements = {
                                 "1823055" : {"type": "dns", "measurement_id": "1822171", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined}
                               };
-      var blacklisted_probes = [12203];
+      var blacklisted_probes = [];
       
       function handle_RIPE_callback(measurements_raw) {
         measurements_parsed = JSON.parse(measurements_raw);
