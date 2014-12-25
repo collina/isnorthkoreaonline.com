@@ -32,6 +32,20 @@ body {
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
 }
 
+code span.answer {
+  color: #B5FF53;
+}
+p.measurement_result {
+  text-align: center;
+  font-size: 1.4 em;
+}
+p.results_loading {
+  color: rgb(0, 102, 153);
+}
+p.results_loaded {
+  font-size: 2em;
+}
+
 header, section, footer {
   display: block;
 }
@@ -57,7 +71,7 @@ header {
   -ms-border-radius: 8px 8px 0 0;
   -o-border-radius: 8px 8px 0 0;
   border-radius: 8px 8px 0 0;
-  background: #C6EAFA;
+  background: #c6eafa;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ddfbfc), color-stop(100%, #c6eafa));
   background: -webkit-linear-gradient(#ddfbfc, #c6eafa);
   background: -moz-linear-gradient(#ddfbfc, #c6eafa);
@@ -107,18 +121,18 @@ header ul {
   top: 20px;
   height: 38px;
   padding: 1px 0;
-  background: #5198DF;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #77b9fb), color-stop(100%, #3782cd));
-  background: -webkit-linear-gradient(#77b9fb, #3782cd);
-  background: -moz-linear-gradient(#77b9fb, #3782cd);
-  background: -o-linear-gradient(#77b9fb, #3782cd);
-  background: -ms-linear-gradient(#77b9fb, #3782cd);
-  background: linear-gradient(#77b9fb, #3782cd);
-  border-radius: 5px;
-  -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-  -moz-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-  box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-  width: auto;
+/*  background: #5198DF;*/
+/*  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #77b9fb), color-stop(100%, #3782cd));*/
+/*  background: -webkit-linear-gradient(#77b9fb, #3782cd);*/
+/*  background: -moz-linear-gradient(#77b9fb, #3782cd);*/
+/*  background: -o-linear-gradient(#77b9fb, #3782cd);*/
+/*  background: -ms-linear-gradient(#77b9fb, #3782cd);*/
+/*  background: linear-gradient(#77b9fb, #3782cd);*/
+/*  border-radius: 5px;*/
+/*  -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;*/
+/*  -moz-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;*/
+/*  box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;*/
+/*  width: auto;*/
 }
 header ul:before {
   content: '';
@@ -128,15 +142,15 @@ header ul:before {
   top: -4px;
   right: -5px;
   bottom: -6px;
-  background: rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  border-radius: 8px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;
+/*  background: rgba(0, 0, 0, 0.1);*/
+/*  -webkit-border-radius: 8px;*/
+/*  -moz-border-radius: 8px;*/
+/*  -ms-border-radius: 8px;*/
+/*  -o-border-radius: 8px;*/
+/*  border-radius: 8px;*/
+/*  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;*/
+/*  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;*/
+/*  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;*/
 }
 header ul li {
   width: 79px;
@@ -147,6 +161,12 @@ header ul li {
 header ul li.single {
   border: none;
 }
+header ul li.flag {
+  background: none;
+  border: none;
+  width: auto;
+}
+
 header ul li + li {
   width: 78px;
   border-left: 1px solid #8BBEF3;
