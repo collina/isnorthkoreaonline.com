@@ -68,9 +68,6 @@
       function handle_RIPE_callback(measurements_raw) {
         measurements_parsed = JSON.parse(measurements_raw);
         
-        if ( (measurements_parsed.probe_id in blacklisted_probes) == true) {
-          return false;
-        }
         ripe_measurements[measurements_parsed.msm_id]["ripe_object"].add_measurement(measurements_parsed);
         poll_results();
       }
