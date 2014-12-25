@@ -39,9 +39,9 @@ RIPEStatus.prototype = {
     
     for (var probe_id in latest_results) {
       if ( this.determination(latest_results[probe_id], this.measurement_type) ) {
-        votes["error"] += 1;
-      } else {
         votes["success"] += 1;
+      } else {
+        votes["error"] += 1;
       }
     }
     return (votes["success"] / ( votes["success"] + votes["error"] ));
