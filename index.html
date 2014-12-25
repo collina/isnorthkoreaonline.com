@@ -61,7 +61,7 @@
     
     <script>
       var ripe_measurements = {
-                                "1823194" : {"type": "dns", "measurement_id": "1823194", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined}
+                                "1823200" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined}
                               };
       
       function handle_RIPE_callback(measurements_raw) {
@@ -79,7 +79,7 @@
       function display_understanding(determination) {
         $("p.measurement_result").removeClass("results_loading");
         $("p.measurement_result").addClass("results_loaded");
-        if (determination > .8) {
+        if (determination > .5) {
           $("p.measurement_result").text("Apparently.")
         } else if ( determination > .4 ) {
           $("p.measurement_result").text("Perhaps, conflicting results.")
