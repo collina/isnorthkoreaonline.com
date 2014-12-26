@@ -34,6 +34,11 @@ body {
 
 code span.answer {
   color: #B5FF53;
+  float: right;
+}
+code span.noanswer {
+  color: #FF9264;
+  float: right;
 }
 p.measurement_result {
   text-align: center;
