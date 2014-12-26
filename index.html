@@ -31,7 +31,9 @@
 
 <p class="measurement_result results_loading"><img src="images/loading.gif" style="margin-right: 20px">Waiting for First Results</p>
 
-<pre><code>DNS Check (ns1.kptc.kp) <span class="answer">Functioning</span>
+<pre><code>DNS Check (ns1.kptc.kp) <span class="answer">Monitoring</span>
+DNS Check (ns2.kptc.kp) <span class="answer">Monitoring</span>
+DNS Check (ns3.kptc.kp) <span class="answer">Monitoring</span>
 </code></pre>
 
 <h3>
@@ -61,7 +63,9 @@
     
     <script>
       var ripe_measurements = {
-                                "1823200" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined}
+                                "1823330" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined},
+                                "1823331" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns2.kptc.kp)", "ripe_object": undefined},
+                                "1823332" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns3.kptc.kp)", "ripe_object": undefined},
                               };
       
       function handle_RIPE_callback(measurements_raw) {
@@ -71,10 +75,12 @@
         poll_results();
       }
       function poll_results() {
+        var aggregate_consensus = [];
         $.each(ripe_measurements, function (measurement_id, measurement_resource) {
-               measurement_pool_consensus = measurement_resource["ripe_object"].consensus();
-               display_understanding(measurement_pool_consensus);
+               aggregate_consensus.push(measurement_resource["ripe_object"].consensus());
         });
+        aggregate_consensus_value = aggregate_consensus.reduce(function(a, b) { return a + b }) / aggregate_consensus.length;
+        display_understanding(aggregate_consensus_value);
       }
       function display_understanding(determination) {
         $("p.measurement_result").removeClass("results_loading");
