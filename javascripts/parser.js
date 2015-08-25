@@ -51,7 +51,7 @@ RIPEStatus.prototype = {
 function get_socket(callback, msm, prb) {
   var socket = io("http://atlas-stream.ripe.net", { path : "/stream/socket.io" });
 
-  socket.on('connect' , function(){ // When the connection is established
+  socket.on('connect' , function(){
       socket.on("atlas_error", callback);
       socket.on("atlas_result", callback);
       socket.emit("atlas_subscribe", { stream_type: "atlas_result", msm: msm, prb: prb });
