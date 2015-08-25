@@ -78,7 +78,6 @@ DNS Check (ns3.kptc.kp) <span class="noanswer">Unresponsive</span>
               dataType: "jsonp",
               success: function( resultMeasurements ) {
                   $.each(resultMeasurements, function (resultID, resultResource) {
-                    console.log(resultResource);
                     handle_RIPE_callback( resultResource );
                   });
               }
