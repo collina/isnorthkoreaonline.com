@@ -42,13 +42,14 @@ code span.noanswer {
 }
 p.measurement_result {
   text-align: center;
-  font-size: 1.4 em;
+  font-size: 3em;
 }
 p.results_loading {
   color: rgb(0, 102, 153);
 }
 p.results_loaded {
-  font-size: 2em;
+  color: #20007A;
+  font-size: 3em;
 }
 
 header, section, footer {
