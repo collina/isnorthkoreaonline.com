@@ -48,20 +48,13 @@ RIPEStatus.prototype = {
   },
 }
 
-function get_socket (callback) {
-  var socket = io("http://atlas-stream.ripe.net", {path : "/stream/socket.io"});
-  socket.on('msm', callback);
+function get_socket(callback, msm, prb) {
+  var socket = io("http://atlas-stream.ripe.net", { path : "/stream/socket.io" });
+
+  socket.on('connect' , function(){ // When the connection is established
+      socket.on("atlas_error", callback);
+      socket.on("atlas_result", callback);
+      socket.emit("atlas_subscribe", { stream_type: "atlas_result", msm: msm, prb: prb });
+  });
   return socket;
 }
-function subscribe_socket (socket, prb, msm) {
-  socket.emit("config", { msm: msm, prb: prb });
-}
-
-//
-//RIPEStatus.prototype.process = function(measurements) {
-//  latest_results = this.latest_results(measurements);
-//  consensus = this.consensus(latest_results);  
-//  return consensus;
-//}
-
-

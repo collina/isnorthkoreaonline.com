@@ -7,9 +7,11 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/jquery-2.1.3.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
     <script src="javascripts/parser.js"></script>
+    <script type="text/JavaScript" src="javascripts/jquery-2.1.3.min.js"></script>
+    <script src="http://atlas-stream.ripe.net/socket.io.js"></script>
+    <script type="text/JavaScript" src="javascripts/parser.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
@@ -29,7 +31,7 @@
       <section>
         <h3>
 
-<p class="measurement_result results_loading"><img src="images/loading.gif" style="margin-right: 20px">Waiting for First Results</p>
+<p class="measurement_result results_loading"><img src="images/loading.gif" style="margin-right: 20px">Waiting for Results</p>
 
 <pre><code>DNS Check (ns1.kptc.kp) <span class="answer">Monitoring</span>
 DNS Check (ns2.kptc.kp) <span class="answer">Monitoring</span>
@@ -57,21 +59,39 @@ DNS Check (ns3.kptc.kp) <span class="noanswer">Unresponsive</span>
       <p>Project maintained by <a href="http://cda.io/">cda</a></p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    <script type="text/JavaScript" src="javascripts/jquery-2.1.3.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
-    <script type="text/JavaScript" src="javascripts/parser.js"></script>
-    
     <script>
       var ripe_measurements = {
                                 "1823330" : {"type": "dns", "measurement_id": "1823200", "label": "DNS Check (ns1.kptc.kp)", "ripe_object": undefined},
                                 "1823331" : {"type": "dns", "measurement_id": "1823331", "label": "DNS Check (ns2.kptc.kp)", "ripe_object": undefined},
                                 //"1823332" : {"type": "dns", "measurement_id": "1823332", "label": "DNS Check (ns3.kptc.kp)", "ripe_object": undefined},
                               };
+    
+      function seed_measurements(ripe_measurements) {
       
-      function handle_RIPE_callback(measurements_raw) {
-        measurements_parsed = JSON.parse(measurements_raw);
-        //console.log(measurements_parsed);
-        ripe_measurements[measurements_parsed.msm_id]["ripe_object"].add_measurement(measurements_parsed);
+        var fiveMinutesAgo = Math.round((new Date()).getTime() / 1000) - (5*60);
+        $.each(ripe_measurements, function (measurement_id, measurement_resource) {
+            measurement_archive_url = 'https://atlas.ripe.net/api/v1/measurement/' + measurement_id + '/result/?start=' + fiveMinutesAgo + '';
+
+            $.ajax({
+              url: measurement_archive_url,
+              jsonp: "callback",
+              dataType: "jsonp",
+              success: function( resultMeasurements ) {
+                  $.each(resultMeasurements, function (resultID, resultResource) {
+                    console.log(resultResource);
+                    handle_RIPE_callback( resultResource );
+                  });
+              }
+            });
+        });
+        
+      
+      }
+      function handle_RIPE_callback(measurements) {
+        if (typeof measurements !== 'object') {
+          measurements = JSON.parse(measurements);
+        }
+        ripe_measurements[measurements.msm_id]["ripe_object"].add_measurement(measurements);
         poll_results();
       }
       function poll_results() {
@@ -95,10 +115,11 @@ DNS Check (ns3.kptc.kp) <span class="noanswer">Unresponsive</span>
         
       }
 
-      var socket = get_socket(handle_RIPE_callback);
+      seed_measurements(ripe_measurements);
+      var sockets = {};
       $.each(ripe_measurements, function (measurement_id, measurement_resource) {
+        sockets[measurement_id] = get_socket(handle_RIPE_callback, null, measurement_id);
         ripe_measurements[measurement_id]["ripe_object"] = new RIPEStatus( { measurement_type: measurement_resource["type"] });
-        subscribe_socket(socket, null, measurement_id);
       });
 
     </script>
